@@ -6,77 +6,101 @@
 #    By: traviaer <traviaer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 12:33:02 by traviaer          #+#    #+#              #
-#    Updated: 2022/08/31 12:33:18 by traviaer         ###   ########.fr        #
+#    Updated: 2022/09/01 19:08:20 by traviaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= libft.a
+NAME		=	libft.a
+INCLUDES	=	../include
+SRCS_DIR 	=	src/
+OBJS_DIR	=	obj/
+CC			=	gcc
+CFLAGS		=	-Wall -Werror -Wextra -I
+RM			=	rm -f
+AR			=	ar rcs
 
-SRCS		= ft_isalpha.c \
-				ft_bzero.c \
-				ft_isdigit.c \
-				ft_isalnum.c \
-				ft_isascii.c \
-				ft_isprint.c \
-				ft_strlen.c \
-				ft_memset.c \
-				ft_memcpy.c \
-				ft_memmove.c \
-				ft_strlcpy.c \
-				ft_strlcat.c \
-				ft_toupper.c \
-				ft_tolower.c \
-				ft_strchr.c \
-				ft_strrchr.c \
-				ft_strncmp.c \
-				ft_memchr.c \
-				ft_memcmp.c \
-				ft_strnstr.c \
-				ft_atoi.c \
-				ft_calloc.c \
-				ft_strdup.c \
-				ft_substr.c \
-				ft_strjoin.c \
-				ft_strtrim.c \
-				ft_split.c \
-				ft_itoa.c \
-				ft_strmapi.c \
-				ft_striteri.c \
-				ft_putchar_fd.c \
-				ft_putstr_fd.c \
-				ft_putendl_fd.c \
-				ft_putnbr_fd.c
+#Colors
 
-BNS_SRCS		= ft_lstnew.c \
-					ft_lstadd_front.c \
-					ft_lstadd_back.c \
-					ft_lstsize.c \
-					ft_lstlast.c \
-					ft_lstdelone.c \
-					ft_lstclear.c \
-					ft_lstiter.c \
-					ft_lstmap.c
+DEF_COLOR = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m
 
-OBJS		= $(SRCS:%.c=%.o)
+#Sources
 
-BNS_OBJS	= $(BNS_SRCS:%.c=%.o)
+FTIS_DIR	=	ft_is/
+FTIS		=	ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint
 
-FLAGS		= -Wall -Wextra -Werror
+FTMEM_DIR	=	ft_mem/
+FTMEM		=	ft_bzero ft_calloc ft_memchr ft_memcmp ft_memmove ft_memset
 
-$(NAME):
-		gcc $(FLAGS) -c $(SRCS) -I ./
-		ar rc $(NAME) $(OBJS)
+FTPUT_DIR	=	ft_put/
+FTPUT		=	ft_putchar_fd ft_putendl_fd ft_putnbr_fd ft_putstr_fd
 
-all: $(NAME)
+FTTO_DIR	=	ft_to/
+FTTO		=	ft_atoi ft_itoa ft_tolower ft_toupper
 
-bonus: $(NAME)
-		gcc $(FLAGS) -c $(BNS_SRCS) -I ./
-		ar rc $(NAME) $(BNS_OBJS)
+FTSTR_DIR	=	ft_str/
+FTSTR		=	ft_split ft_strchr ft_strdup ft_striteri ft_strjoin \
+				ft_strlcat ft_strlcpy ft_strlen ft_strmapi ft_strncmp \
+				ft_strnstr ft_strrchr ft_strtrim ft_substr
+
+FTLST_DIR	=	ft_lst/
+FTLST		=	ft_lstadd_back ft_lstadd_front ft_lstclear ft_lstdelone \
+				ft_lstiter ft_lstlast ft_lstmap ft_lstnew ft_lstsize
+
+SRC_FILES+=$(addprefix $(FTIS_DIR),$(FTIS))
+SRC_FILES+=$(addprefix $(FTMEM_DIR),$(FTMEM))
+SRC_FILES+=$(addprefix $(FTPUT_DIR),$(FTPUT))
+SRC_FILES+=$(addprefix $(FTTO_DIR),$(FTTO))
+SRC_FILES+=$(addprefix $(FTSTR_DIR),$(FTSTR))
+SRC_FILES+=$(addprefix $(FTLST_DIR),$(FTLST))
+
+SRCS 		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJS 		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
+
+###
+
+OBJSF		=	.cache_exists
+
+all:		$(NAME)
+
+$(NAME):	$(OBJS)
+			@$(AR) $(NAME) $(OBJS)
+			@ranlib $(NAME)
+			@echo "$(GREEN)Libft compiled!$(DEF_COLOR)"
+
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJSF)
+			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJSF):
+			@mkdir -p $(OBJS_DIR)
+			@mkdir -p $(OBJS_DIR)$(FTIS_DIR)
+			@mkdir -p $(OBJS_DIR)$(FTMEM_DIR)
+			@mkdir -p $(OBJS_DIR)$(FTPUT_DIR)
+			@mkdir -p $(OBJS_DIR)$(FTTO_DIR)
+			@mkdir -p $(OBJS_DIR)$(FTSTR_DIR)
+			@mkdir -p $(OBJS_DIR)$(FTLST_DIR)
 
 clean:
-		rm -f $(OBJS) $(BNS_OBJS)
+			@$(RM) -rf $(OBJS_DIR)
+			@$(RM) -f $(OBJSF)
+			@echo "$(BLUE)libft objects files cleaned!$(DEF_COLOR)"
 
-fclean: clean
-		rm -f $(NAME)
+fclean:		clean
+			@$(RM) -f $(NAME)
+			@echo "$(CYAN)libft executable files cleaned!$(DEF_COLOR)"
 
-re: fclean all
+re:			fclean all
+			@echo "$(GREEN)Cleaned and rebuilt everything for libft!$(DEF_COLOR)"
+
+norm:
+	@norminette $(SRCS) $(INCLUDES) | grep -v Norme -B1 || true
+
+.PHONY:		all clean fclean re norm

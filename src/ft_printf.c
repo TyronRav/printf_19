@@ -6,13 +6,11 @@
 /*   By: traviaer <traviaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 08:50:44 by traviaer          #+#    #+#             */
-/*   Updated: 2022/09/01 11:22:41 by traviaer         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:20:34 by traviaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "ft_printf.h" */
-#include <unistd.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 
 int ft_print_char(int c)
 {
