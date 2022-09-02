@@ -6,9 +6,11 @@
 /*   By: traviaer <traviaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:20:50 by traviaer          #+#    #+#             */
-/*   Updated: 2022/04/25 16:21:14 by traviaer         ###   ########.fr       */
+/*   Updated: 2022/09/02 09:50:44 by traviaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isdigit(int c)
 {

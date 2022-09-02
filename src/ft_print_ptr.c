@@ -6,16 +6,16 @@
 /*   By: traviaer <traviaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:42:07 by traviaer          #+#    #+#             */
-/*   Updated: 2022/09/01 19:30:16 by traviaer         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:06:38 by traviaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
 
-int ft_ptr_len(uintptr_t num)
+int	ft_ptr_len(uintptr_t num)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (num != 0)
@@ -26,7 +26,7 @@ int ft_ptr_len(uintptr_t num)
 	return (len);
 }
 
-void ft_put_ptr(uintptr_t num)
+void	ft_put_ptr(uintptr_t num)
 {
 	if (num >= 16)
 	{
@@ -42,18 +42,18 @@ void ft_put_ptr(uintptr_t num)
 	}
 }
 
-int ft_print_ptr(unsigned long long ptr)
+int	ft_print_ptr(unsigned long long ptr)
 {
-	int len;
+	int	print_length;
 
-	len = 0;
-	len += write(1, "0x", 2);
+	print_length = 0;
+	print_length += write(1, "0x", 2);
 	if (ptr == 0)
-		len += write(1, "0", 1);
+		print_length += write(1, "0", 1);
 	else
 	{
 		ft_put_ptr(ptr);
-		len += ft_ptr_len(ptr);
+		print_length += ft_ptr_len(ptr);
 	}
-	return (len);
+	return (print_length);
 }

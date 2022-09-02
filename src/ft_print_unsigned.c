@@ -6,30 +6,30 @@
 /*   By: traviaer <traviaer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 13:52:04 by traviaer          #+#    #+#             */
-/*   Updated: 2022/09/01 19:30:47 by traviaer         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:06:59 by traviaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "ft_printf.h"
+#include <stdlib.h>
 
-int ft_num_len(unsigned int nb)
+int	ft_num_len(unsigned	int num)
 {
-	int len;
+	int	len;
 
 	len = 0;
-	while (nb != 0)
+	while (num != 0)
 	{
 		len++;
-		nb = nb / 10;
+		num = num / 10;
 	}
 	return (len);
 }
 
-char *ft_uitoa(unsigned int nb)
+char	*ft_uitoa(unsigned int nb)
 {
-	int len;
-	char *num;
+	char	*num;
+	int		len;
 
 	len = ft_num_len(nb);
 	num = (char *)malloc(sizeof(char) * (len + 1));
@@ -45,19 +45,19 @@ char *ft_uitoa(unsigned int nb)
 	return (num);
 }
 
-int ft_print_unsigned(unsigned int nb)
+int	ft_print_unsigned(unsigned int nb)
 {
-	int len;
-	char *num;
+	int		print_length;
+	char	*num;
 
-	len = 0;
+	print_length = 0;
 	if (nb == 0)
-		len += write(1, "0", 1);
+		print_length += write(1, "0", 1);
 	else
 	{
 		num = ft_uitoa(nb);
-		len += ft_print_str(num);
+		print_length += ft_print_str(num);
 		free(num);
 	}
-	return (len);
+	return (print_length);
 }

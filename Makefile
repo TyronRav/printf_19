@@ -6,7 +6,7 @@
 #    By: traviaer <traviaer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 12:23:43 by traviaer          #+#    #+#              #
-#    Updated: 2022/09/01 19:13:18 by traviaer         ###   ########.fr        #
+#    Updated: 2022/09/02 14:39:39 by traviaer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,6 @@ CFLAGS		= -Wall -Werror -Wextra -I
 RM			= rm -f
 AR			= ar rcs
 
-# Colors
-
 DEF_COLOR = \033[0;39m
 GRAY = \033[0;90m
 RED = \033[0;91m
@@ -31,8 +29,6 @@ BLUE = \033[0;94m
 MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
-
-#Sources
 
 SRC_FILES	=	ft_printf ft_printf_tools ft_print_ptr ft_print_unsigned ft_print_hex
 
@@ -76,5 +72,8 @@ re:			fclean all
 
 norm:
 			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
+
+test:		$(NAME)
+			gcc -o app src/main.c libftprintf.a
 
 .PHONY:		all clean fclean re norm
